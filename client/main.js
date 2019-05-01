@@ -14,12 +14,7 @@ window.onload = async function () {
   setInterval(async () => {
     // try to carry out a fetch, if fails know issue
     try {
-      // Have to disable eslint here as unused const used
-      // to check server connection
-      /* eslint-disable */
-      const res = await fetch('/events/?');
-      /* eslint-enable */
-      /* eslint-disable no-alert */
+      await fetch('/events/?id=1');
     } catch (error) {
       alert('Server connection lost, try refreshing.');
     }
