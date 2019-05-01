@@ -55,6 +55,10 @@ function checkFred(res)
     }
 }
 
+// Note that due to the choice to have the list of all entities
+// returned by my GETs when no parameters are given, I cannot test
+// missing parameters as an error case as it is not an error case.
+
 describe('Test the events service', () => {
     test('GET /events/? succeeds', () => {
         return request(app)
@@ -67,16 +71,30 @@ describe('Test the events service', () => {
 	    .get('/events/?')
 	    .expect('Content-type', /json/);
     });
-
+    
+    // Testing multiple ids
+    
     test('GET /events/?id=1 succeeds', () => {
         return request(app)
 	    .get('/events/?id=1')
+	    .expect(200);
+    });
+    
+    test('GET /events/?id=2 succeeds', () => {
+        return request(app)
+	    .get('/events/?id=2')
 	    .expect(200);
     });
 
     test('GET /events/?id=1 returns JSON', () => {
         return request(app)
 	    .get('/events/?id=1')
+	    .expect('Content-type', /json/);
+    });
+    
+    test('GET /events/?id=2 returns JSON', () => {
+        return request(app)
+	    .get('/events/?id=2')
 	    .expect('Content-type', /json/);
     });
 
@@ -106,16 +124,30 @@ describe('Test the comments service', () => {
 	    .get('/comments/?')
 	    .expect('Content-type', /json/);
     });
-
+    
+    // Testing multiple ids
+    
     test('GET /comments/?id=1 succeeds', () => {
         return request(app)
 	    .get('/comments/?id=1')
 	    .expect(200);
     });
-
+    
+    test('GET /comments/?id=2 succeeds', () => {
+        return request(app)
+	    .get('/comments/?id=2')
+	    .expect(200);
+    });
+    
     test('GET /comments/?id=1 returns JSON', () => {
         return request(app)
 	    .get('/comments/?id=1')
+	    .expect('Content-type', /json/);
+    });
+    
+    test('GET /comments/?id=2 returns JSON', () => {
+        return request(app)
+	    .get('/comments/?id=2')
 	    .expect('Content-type', /json/);
     });
 

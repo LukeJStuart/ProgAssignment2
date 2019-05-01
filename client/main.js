@@ -9,18 +9,22 @@ window.onload = async function () {
   const weatherbody = await weatherres.json();
   document.getElementById('WeatherDescription').innerText = weatherbody[0].WeatherText;
   document.getElementById('Temperature').innerText = weatherbody[0].Temperature.Metric.Value;
-  
+
   // code to check every 3 seconds weather the server is still connected
-  setInterval(async function(){ 
+  setInterval(async () => {
     // try to carry out a fetch, if fails know issue
     try {
-        const res = await fetch('/events/?');
-        const body = await res.json();
+      // Have to disable eslint here as unused const used
+      // to check server connection
+      /* eslint-disable */
+      const res = await fetch('/events/?');
+      /* eslint-enable */
+      /* eslint-disable no-alert */
     } catch (error) {
-        alert('Server connection lost, try refreshing.');
+      alert('Server connection lost, try refreshing.');
     }
   }, 3000);
-  
+
   const searchfunction = async function () {
     // event.preventDefault();
     document.getElementById('ErrorSection').innerHTML = '';
@@ -161,18 +165,18 @@ window.onload = async function () {
               }
               if (fieldsfilled) {
                 const response = await fetch('/comments',
-                    {
-                      method: 'POST',
-                      headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                      },
-                      body: `accesstoken=${accesstoken}&date=${date}&eventid=${eventid}&commenter=${commenter}&comment=${comment}`,
-                    });
+                  {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `accesstoken=${accesstoken}&date=${date}&eventid=${eventid}&commenter=${commenter}&comment=${comment}`,
+                  });
                 // Making it so that when they submit a comment their
                 // comment is displayed and the form disappears
                 html = htmlbeforeform;
                 if (relevantComments.length === 0) {
-                    html += '<h4>Comments</h4>';
+                  html += '<h4>Comments</h4>';
                 }
                 html += "<div class='panel panel-default'>";
                 html += "<div class='panel-body'>";
@@ -185,19 +189,19 @@ window.onload = async function () {
                 // Setting html to updated version with new comment
                 document.getElementById('content').innerHTML = html;
                 if (!response.ok) {
-                    throw new Error(`problem adding comment${response.code}`);
+                  throw new Error(`problem adding comment${response.code}`);
                 }
                 // successful so no error
-                document.getElementById("ErrorSection").innerHTML = '';
+                document.getElementById('ErrorSection').innerHTML = '';
               } else {
                 if (commenter === '') {
-                    errorhtml += "<p style='color:red;'>No Name Entered</p>";
+                  errorhtml += "<p style='color:red;'>No Name Entered</p>";
                 }
                 if (comment === '') {
-                    errorhtml += "<p style='color:red;'>No Comment Entered</p>";
-                } 
+                  errorhtml += "<p style='color:red;'>No Comment Entered</p>";
+                }
                 // update error section
-                document.getElementById("ErrorSection").innerHTML = errorhtml;
+                document.getElementById('ErrorSection').innerHTML = errorhtml;
               }
             } catch (error) {
               alert(`problem: ${error}`);
@@ -258,11 +262,11 @@ window.onload = async function () {
       if (adminpassword === 'admin') {
         validpassword = true;
       }
-      
+
       // Need to check if information submitted for title, place, and description
       let datapresent = false;
       if ((title !== '') && (place !== '') && (description !== '')) {
-          datapresent = true;
+        datapresent = true;
       }
       let validdate = false;
       const dateformat = /^(0?[1-9]|[12][0-9]|3[01])[/](0?[1-9]|1[012])[/]\d{2}$/;
@@ -313,13 +317,13 @@ window.onload = async function () {
           errorhtml += "<p style='color:red;'>Invalid Date</p>";
         }
         if (title === '') {
-            errorhtml += "<p style='color:red;'>No Title Entered</p>";
+          errorhtml += "<p style='color:red;'>No Title Entered</p>";
         }
         if (place === '') {
-            errorhtml += "<p style='color:red;'>No Place Entered</p>";
+          errorhtml += "<p style='color:red;'>No Place Entered</p>";
         }
         if (description === '') {
-            errorhtml += "<p style='color:red;'>No Description Entered</p>";
+          errorhtml += "<p style='color:red;'>No Description Entered</p>";
         }
       }
       // Updating errors
