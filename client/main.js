@@ -128,6 +128,7 @@ window.onload = async function () {
           const checkres = await fetch('/events/?');
           const checkbody = await checkres.json();
           let eventexists = false;
+          let errorhtml = '';
           // only say event exists if the id of it is in one of the events found in new GET
           for (let k = 0; k < checkbody.length; k++) {
             if (checkbody[k].id === results[i].id) {
@@ -153,32 +154,50 @@ window.onload = async function () {
               const eventid = results[i].id;
               const commenter = document.getElementById('NameInput').value;
               const comment = document.getElementById('CommentBox').value;
-              const response = await fetch('/comments',
-                {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                  },
-                  body: `accesstoken=${accesstoken}&date=${date}&eventid=${eventid}&commenter=${commenter}&comment=${comment}`,
-                });
+              // can only submit a comment if have completed both fields
+              let fieldsfilled = false;
+              if ((commenter !== '') && (comment !== '')) {
+                fieldsfilled = true;
+              }
+              if (fieldsfilled) {
+                const response = await fetch('/comments',
+                    {
+                      method: 'POST',
+                      headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                      },
+                      body: `accesstoken=${accesstoken}&date=${date}&eventid=${eventid}&commenter=${commenter}&comment=${comment}`,
+                    });
                 // Making it so that when they submit a comment their
                 // comment is displayed and the form disappears
-              html = htmlbeforeform;
-              if (relevantComments.length === 0) {
-                html += '<h4>Comments</h4>';
-              }
-              html += "<div class='panel panel-default'>";
-              html += "<div class='panel-body'>";
-              html += `<p>Commenter: ${commenter}</p>`;
-              html += `<p>Date: ${date}</p>`;
-              html += `<p>Comment: ${comment}</p>`;
-              html += '<p></p>';
-              html += '</div>';
-              html += '</div>';
-              // Setting html to updated version with new comment
-              document.getElementById('content').innerHTML = html;
-              if (!response.ok) {
-                throw new Error(`problem adding comment${response.code}`);
+                html = htmlbeforeform;
+                if (relevantComments.length === 0) {
+                    html += '<h4>Comments</h4>';
+                }
+                html += "<div class='panel panel-default'>";
+                html += "<div class='panel-body'>";
+                html += `<p>Commenter: ${commenter}</p>`;
+                html += `<p>Date: ${date}</p>`;
+                html += `<p>Comment: ${comment}</p>`;
+                html += '<p></p>';
+                html += '</div>';
+                html += '</div>';
+                // Setting html to updated version with new comment
+                document.getElementById('content').innerHTML = html;
+                if (!response.ok) {
+                    throw new Error(`problem adding comment${response.code}`);
+                }
+                // successful so no error
+                document.getElementById("ErrorSection").innerHTML = '';
+              } else {
+                if (commenter === '') {
+                    errorhtml += "<p style='color:red;'>No Name Entered</p>";
+                }
+                if (comment === '') {
+                    errorhtml += "<p style='color:red;'>No Comment Entered</p>";
+                } 
+                // update error section
+                document.getElementById("ErrorSection").innerHTML = errorhtml;
               }
             } catch (error) {
               alert(`problem: ${error}`);
@@ -239,6 +258,12 @@ window.onload = async function () {
       if (adminpassword === 'admin') {
         validpassword = true;
       }
+      
+      // Need to check if information submitted for title, place, and description
+      let datapresent = false;
+      if ((title !== '') && (place !== '') && (description !== '')) {
+          datapresent = true;
+      }
       let validdate = false;
       const dateformat = /^(0?[1-9]|[12][0-9]|3[01])[/](0?[1-9]|1[012])[/]\d{2}$/;
       if (date.match(dateformat)) {
@@ -260,8 +285,8 @@ window.onload = async function () {
           validdate = true;
         }
       }
-      // only carry out post if valid date and valid password
-      if (validpassword && validdate) {
+      // only carry out post if valid date and valid password and all fields filled
+      if (validpassword && validdate && datapresent) {
         const response = await fetch('/events',
           {
             method: 'POST',
@@ -280,11 +305,21 @@ window.onload = async function () {
         document.getElementById('Description').value = '';
         document.getElementById('Password').value = '';
       } else {
+        // relevant error messages
         if (validpassword === false) {
           errorhtml += "<p style='color:red;'>Invalid Password</p>";
         }
         if (validdate === false) {
           errorhtml += "<p style='color:red;'>Invalid Date</p>";
+        }
+        if (title === '') {
+            errorhtml += "<p style='color:red;'>No Title Entered</p>";
+        }
+        if (place === '') {
+            errorhtml += "<p style='color:red;'>No Place Entered</p>";
+        }
+        if (description === '') {
+            errorhtml += "<p style='color:red;'>No Description Entered</p>";
         }
       }
       // Updating errors
