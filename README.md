@@ -5,7 +5,11 @@
 The website is based on the idea of a community in Croydon having events in the local area with titles, places, dates and descriptions and people being able to leave comments on these events (for example, to suggest how the event could be improved in future or to give praise).
 
 ### Cloud Deployment
-I have utilised the Heroku free cloud deployment service. My app is accessible at https://afternoon-spire-79392.herokuapp.com/. Note that as the service is free the 'dyno' allowing it to run will sleep after a half hour of recieving no traffic. This simply causes a dely of a few seconds for the first request upon waking. Requests following the initial one will perform as normal. The free account does have a monthly limit of 550 'awake' hours - this shouldn't be exceeded for this project.
+I have utilised the Heroku free cloud deployment service. My app is accessible at https://afternoon-spire-79392.herokuapp.com/.
+
+Note that as the service is free the 'dyno' allowing it to run will sleep after a half hour of recieving no traffic. This simply causes a dely of a few seconds for the first request upon waking. Requests following the initial one will perform as normal. The free account does have a monthly limit of 550 'awake' hours - this shouldn't be exceeded for this project.
+
+Also note that the server will take event and comment submissions from users and maintain them in the in-memory model for as long as the server is not restarted, therefore a user may be able to see data submitted by other users, as intended. Although the site requires all fields to be completed and requires correct date formatting on event submissions the quality of data such as titles and descriptions for events is not verified so users may encounter data of poor quality.
 
 ###  Top Bar
 The bar at the top of the site has the following buttons:
