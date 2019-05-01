@@ -85,6 +85,13 @@ describe('Test the events service', () => {
 	    .get('/events/?id=2')
 	    .expect(200);
     });
+    
+    // Testing an id that doesn't exist
+    test('GET /events/?id=6 fails - no such event', () => {
+        return request(app)
+	    .get('/events/?id=6')
+	    .expect(404);
+    });
 
     test('GET /events/?id=1 returns JSON', () => {
         return request(app)
@@ -104,6 +111,13 @@ describe('Test the events service', () => {
 	    .expect(checkCarnival);
     });
 
+    // Testing the minimal list get method I have
+    // included to satisfy the requirement
+    test('GET /events/minlist succeeds', () => {
+        return request(app)
+	    .get('/events/minlist')
+	    .expect(200);
+    });
 
     test('POST /events needs access_token', () => {
         return request(app)
@@ -139,6 +153,13 @@ describe('Test the comments service', () => {
 	    .expect(200);
     });
     
+    // Testing an id that doesn't exist
+    test('GET /comments/?id=6 fails - no such comment', () => {
+        return request(app)
+	    .get('/comments/?id=6')
+	    .expect(404);
+    });
+    
     test('GET /comments/?id=1 returns JSON', () => {
         return request(app)
 	    .get('/comments/?id=1')
@@ -157,7 +178,14 @@ describe('Test the comments service', () => {
 	    .expect(checkFred);
     });
 
-
+    // Testing the minimal list get method I have
+    // included to satisfy the requirement
+    test('GET /comments/minlist succeeds', () => {
+        return request(app)
+	    .get('/comments/minlist')
+	    .expect(200);
+    });
+    
     test('POST /comments needs access_token', () => {
         return request(app)
 	    .post('/comments')

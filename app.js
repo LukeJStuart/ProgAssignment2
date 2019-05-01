@@ -39,7 +39,9 @@ let nextCommentId = 4;
 app.use(express.static('client'));
 
 app.route('/events')
-
+  // This get request will return all events if no id given
+  // or a specific event if an id is given - it is useful for
+  // my site to be able to access all the events with one get
   .get((req, res) => {
     res.type('json');
     // take id of event from query in url
@@ -58,7 +60,7 @@ app.route('/events')
       }
       if (theEvent === undefined) {
         // if event doesn't exist, return null
-        res.send(null);
+        res.status(404).send({ message: 'No event of this id.' });
       } else {
         // if event does exist, return it
         res.send(theEvent);
@@ -66,6 +68,7 @@ app.route('/events')
     }
   })
 
+  // Post allows addition of a new event
   .post((req, res) => {
     res.type('json');
     // requires access token of ABCD to work
@@ -91,7 +94,9 @@ app.route('/events')
   });
 
 app.route('/comments')
-
+  // This get request will return all comments if no id given
+  // or a specific comment if an id is given - it is useful for
+  // my site to be able to access all the comments with one get
   .get((req, res) => {
     res.type('json');
     // take id of comment from query in url
@@ -109,7 +114,7 @@ app.route('/comments')
       }
       if (theComment === undefined) {
         // if comment doesn't exist, return null
-        res.send(null);
+        res.status(404).send({ message: 'No comment of this id.' });
       } else {
         // if comment does exist, return it
         res.send(theComment);
@@ -117,6 +122,7 @@ app.route('/comments')
     }
   })
 
+  // Post allows addition of a new comment
   .post((req, res) => {
     res.type('json');
     // post requires access token EFGH
@@ -141,4 +147,29 @@ app.route('/comments')
     }
   });
 
+// Due to the marking criteria to have a GET returning minimal details
+// I have included such a route for comments at /comments/minlist
+// this is not required or used by my site
+app.route('/comments/minlist')
+  .get((req, res) => {
+    res.type('json');
+    const minlist = [];
+    for (let i = 0; i < commentList.length; i++) {
+      minlist[i] = { id: commentList[i].id, commenter: commentList[i].commenter };
+    }
+    res.send(minlist);
+  });
+
+// Due to the marking criteria to have a GET returning minimal details
+// I have included such a route for events at /events/minlist
+// this is not required or used by my site
+app.route('/events/minlist')
+  .get((req, res) => {
+    res.type('json');
+    const minlist = [];
+    for (let i = 0; i < eventList.length; i++) {
+      minlist[i] = { id: eventList[i].id, title: eventList[i].title };
+    }
+    res.send(minlist);
+  });
 module.exports = app;
