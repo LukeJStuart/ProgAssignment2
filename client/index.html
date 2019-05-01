@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Croydon Events</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <script src="main.js"></script>
+  <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32" />
+  <link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16" />
+  <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 450px}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      padding-top: 20px;
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+    
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;} 
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#" id="HomeButton">Croydon Events</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li><a href="#" id="Browse">Browse</a></li>
+        <li><a href="#" id="AddEvent">Add Event</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+  
+<div class="container-fluid text-center">
+	<div class="col-sm-2 text-center">
+    </div>
+    <div class="col-sm-8 text-center"> 
+      <h1>Events in Croydon</h1>
+      <form class="form-inline">
+    	<input class="form-control mr-sm-2" type="search" placeholder="Search Events" aria-label="Search" id="SearchBar">
+    	<button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="SearchButton">Search</button>
+  	  </form>
+      <div>
+        <div id="content">
+        </div>
+        <div id="AddEventForm" hidden>
+            <h3>Add An Event:</h3>
+            <div class="form-group">
+                <label for="Title">Title:</label>
+                <input type="text" class="form-control" id="Title">
+            </div>
+            <div class="form-group">
+                <label for="Date">Date:</label>
+                <input type="text" class="form-control" id="Date">
+            </div>
+            <div class="form-group">
+                <label for="Place">Place:</label>
+                <input type="text" class="form-control" id="Place">
+            </div>
+            <div class="form-group">
+                <label for="Description">Description:</label>
+                <textarea class="form-control" rows="5" id="Description"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="Password">Admin Password:</label>
+                <input type="password" class="form-control" id="Password">
+            </div>
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="SubmitEvent">Submit</button>
+        </div>
+        <div id="ErrorSection">
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-2 text-center">
+        <h3>Weather in London:</h3>
+        <p>Description: <span id="WeatherDescription">Loading</span></p>
+        <p>Temperature: <span id="Temperature">Loading</span> Degrees Celsius</p>
+    </div>
+</div>
+
+</body>
+</html>
