@@ -4,6 +4,9 @@
 
 The website is based on the idea of a community in Croydon having events in the local area with titles, places, dates and descriptions and people being able to leave comments on these events (for example, to suggest how the event could be improved in future or to give praise).
 
+### Cloud Deployment
+I have utilised the Heroku free cloud deployment service. My app is accessible at https://afternoon-spire-79392.herokuapp.com/. Note that as the service is free the 'dyno' allowing it to run will sleep after a half hour of recieving no traffic. This simply causes a dely of a few seconds for the first request upon waking. Requests following the initial one will perform as normal. The free account does have a monthly limit of 550 'awake' hours - this shouldn't be exceeded for this project.
+
 ###  Top Bar
 The bar at the top of the site has the following buttons:
 
@@ -13,7 +16,7 @@ The bar at the top of the site has the following buttons:
  
  ### Weather
  At the right hand side of the page is a description of the current weather conditions in London using data from the external web service 'AccuWeather'.
- This is included as Croydon is in London and if a user is viewing events to potentially attend that day the weather information could be useful to them.
+ This is included as Croydon is in London and if a user is viewing events to potentially attend that day the weather information could be useful to them. Note that the web service is freemium and does indicate a limit to its free use. No issues with its use have been encountered in development, however there is a slight chance that a limit could be reached during or before later use in testing. If the app is no longer able to obtain the data from the service it'll display 'Loading' in place of the data.
  
 ###  Search Bar
 The search bar feature allows the user to display all events that have titles containing their search term. The search feature is present on all pages, and pressing the search button will replace the contents of the page below the bar with the search results.
@@ -47,9 +50,9 @@ Example requests:
 
 Example responses:
 
- - `[{"id":1,"date":"01/06/19","title":"Carnival","place":"Village Green","description":"A gathering of entertainment professionals from 10:00 to 16:00. £5 entry."},{"id":2,"date":"02/06/19","title":"Vegetable Competition","place":"Village Hall","description":"Competition to find largest vegetables gorwn this year. 13:00 - 15:00"},{"id":3,"date":"03/06/19","title":"Welly Throwing","place":"Market Square","description":"Who can throw a welly the furthest? Find out at 13:00. Cash prize."}]`
+ - `[{"id":1,"date":"01/06/19","title":"Carnival","place":"Village Green","description":"A gathering of entertainment professionals from 10:00 to 16:00. ï¿½5 entry."},{"id":2,"date":"02/06/19","title":"Vegetable Competition","place":"Village Hall","description":"Competition to find largest vegetables gorwn this year. 13:00 - 15:00"},{"id":3,"date":"03/06/19","title":"Welly Throwing","place":"Market Square","description":"Who can throw a welly the furthest? Find out at 13:00. Cash prize."}]`
  
- - `{"id":1,"date":"01/06/19","title":"Carnival","place":"Village Green","description":"A gathering of entertainment professionals from 10:00 to 16:00. £5 entry."}`
+ - `{"id":1,"date":"01/06/19","title":"Carnival","place":"Village Green","description":"A gathering of entertainment professionals from 10:00 to 16:00. ï¿½5 entry."}`
 
 #### POST
 Route: `/events`
