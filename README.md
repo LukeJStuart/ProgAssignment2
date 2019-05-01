@@ -36,6 +36,7 @@ This API uses two entities: events and comments. Each of these entities has a GE
 ### Events
 #### GET
 Route: `/events`
+
 Response format: JSON
 
 Parameters:
@@ -56,7 +57,9 @@ Example responses:
 
 #### POST
 Route: `/events`
+
 Response format: JSON
+
 Requires access token: Yes - this method currently checks for the inclusion of the code 'ABCD' (in an extended implementation this could be made more robust)
 
 Parameters:
@@ -81,6 +84,7 @@ Example results:
 ### Comments
 #### GET
 Route: `/comments`
+
 Response format: JSON
 
 Parameters:
@@ -101,7 +105,9 @@ Example responses:
 
 #### POST
 Route: `/comments`
+
 Response format: JSON
+
 Requires access token: Yes - this method currently checks for the inclusion of the code 'EFGH' (in an extended implementation this could be made more robust)
 
 Parameters:
