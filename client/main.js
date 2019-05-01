@@ -5,7 +5,7 @@
 // Allowing unnamed functions
 /* eslint func-names: ["error", "never"] */
 window.onload = async function () {
-  const weatherres = await fetch('http://dataservice.accuweather.com/currentconditions/v1/328328?apikey=7cqA21o68GoPVUGSdbvGp0n1zdHGRtAO&lanuage=en-us&details=false');
+  const weatherres = await fetch('https://dataservice.accuweather.com/currentconditions/v1/328328?apikey=7cqA21o68GoPVUGSdbvGp0n1zdHGRtAO&lanuage=en-us&details=false');
   const weatherbody = await weatherres.json();
   document.getElementById('WeatherDescription').innerText = weatherbody[0].WeatherText;
   document.getElementById('Temperature').innerText = weatherbody[0].Temperature.Metric.Value;
