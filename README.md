@@ -2,14 +2,14 @@
 
 ## Website Documentation
 
-The website is based on the idea of a community in Croydon having events in the local area with titles, places, dates and descriptions and people being able to leave comments on these events (for example, to suggest how the event could be improved in future or to give praise). If the site is hosted locally it can be accessed in a browser at http://localhost:8080/.
+The website is based on the idea of a community in Croydon having events in the local area with titles, places, dates and descriptions, and people being able to leave comments on these events (for example, to suggest how the event could be improved in future or to give praise). If the site is hosted locally it can be accessed in a browser at http://localhost:8080/.
 
 ### Cloud Deployment
 I have utilised the Heroku free cloud deployment service. My app is accessible at https://afternoon-spire-79392.herokuapp.com/.
 
-Note that as the service is free the 'dyno' allowing it to run will sleep after a half hour of recieving no traffic. This simply causes a dely of a few seconds for the first request upon waking. Requests following the initial one will perform as normal. The free account does have a monthly limit of 550 'awake' hours - this shouldn't be exceeded for this project.
+Note that as the service is free the 'dyno' allowing it to run will sleep after half an hour of recieving no traffic. This simply causes a delay of a few seconds for the first request upon waking. Requests following the initial one will perform as normal. The free account does have a monthly limit of 550 'awake' hours - this shouldn't be exceeded for this project.
 
-Also note that the server will take event and comment submissions from users and maintain them in the in-memory model for as long as the server is not restarted, therefore a user may be able to see data submitted by other users, as intended. Although the site requires all fields to be completed and requires correct date formatting on event submissions the quality of data such as titles and descriptions for events is not verified so users may encounter data of poor quality.
+Also note that the server will take event and comment submissions from users and maintain them in the in-memory model for as long as the server is not restarted, therefore a user may be able to see data submitted by other users, as intended. Although the site requires all fields to be completed and requires correct date formatting on event submissions, the quality of data such as titles and descriptions for events is not verified so users may encounter data of poor quality.
 
 ###  Top Bar
 The bar at the top of the site has the following buttons:
@@ -35,7 +35,7 @@ When the user has displayed a list of events by clicking the 'Browse' button or 
 
 ##  API Documentation
 
-This API uses two entities: events and comments. Each of these entities has a GET and POST method, with the GET methods being able to return a list of all the entities of the given type or return a specific entity depending on whether an id is included in the url or not.
+This API uses two entities: events and comments. Each of these entities has a GET and POST method, with the GET methods being able to return a list of all the entities of the given type or return a specific entity depending on whether an id is included in the url or not. Although my site doesn't require such functionality, I have also included get method routes ending in `/minlist` to allow the access of limited details on all the entities of a given type, as required by the task.
 
 ### Events
 #### GET
@@ -58,6 +58,20 @@ Example responses:
  - `[{"id":1,"date":"01/06/19","title":"Carnival","place":"Village Green","description":"A gathering of entertainment professionals from 10:00 to 16:00. �5 entry."},{"id":2,"date":"02/06/19","title":"Vegetable Competition","place":"Village Hall","description":"Competition to find largest vegetables gorwn this year. 13:00 - 15:00"},{"id":3,"date":"03/06/19","title":"Welly Throwing","place":"Market Square","description":"Who can throw a welly the furthest? Find out at 13:00. Cash prize."}]`
  
  - `{"id":1,"date":"01/06/19","title":"Carnival","place":"Village Green","description":"A gathering of entertainment professionals from 10:00 to 16:00. �5 entry."}`
+
+ Route: `/events/minlist`
+
+Response format: JSON
+
+Parameters: None
+
+Example request:
+
+ - `/events/minlist`
+
+Example response:
+
+- `[{"id":1,"title":"Carnival"},{"id":2,"title":"Vegetable Competition"},{"id":3,"title":"Welly Throwing"}]`
 
 #### POST
 Route: `/events`
@@ -106,6 +120,20 @@ Example responses:
  - `[{"id":1,"date":"01/06/19","eventid":1,"commenter":"Fred Barnes","comment":"The clown was too scary."},{"id":2,"date":"02/06/19","eventid":2,"commenter":"Chris Rutherford","comment":"I'm glad Fred won the largest cucumber competition."},{"id":3,"date":"03/06/19","eventid":3,"commenter":"Benjamin Granger","comment":"The wellies were not of regulation weight."},{"id":4,"date":"30/4/2019","eventid":"4","commenter":"Tom","comment":"I hate fracking."}]`
  
  - `{"id":1,"date":"01/06/19","eventid":1,"commenter":"Fred Barnes","comment":"The clown was too scary."}`
+
+ Route: `/comments/minlist`
+
+Response format: JSON
+
+Parameters: None
+
+Example request:
+
+ - `/comments/minlist`
+
+Example response:
+
+- `[{"id":1,"commenter":"Fred Barnes"},{"id":2,"commenter":"Chris Rutherford"},{"id":3,"commenter":"Benjamin Granger"}]`
 
 #### POST
 Route: `/comments`
