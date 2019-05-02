@@ -2,7 +2,7 @@
 
 ## Website Documentation
 
-The website is based on the idea of a community in Croydon having events in the local area with titles, places, dates and descriptions and people being able to leave comments on these events (for example, to suggest how the event could be improved in future or to give praise).
+The website is based on the idea of a community in Croydon having events in the local area with titles, places, dates and descriptions and people being able to leave comments on these events (for example, to suggest how the event could be improved in future or to give praise). If the site is hosted locally it can be accessed in a browser at http://localhost:8080/.
 
 ### Cloud Deployment
 I have utilised the Heroku free cloud deployment service. My app is accessible at https://afternoon-spire-79392.herokuapp.com/.
